@@ -1,0 +1,22 @@
+{
+    "name": "laboratory/vidconvert",
+    "description": "PHP Library for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool that can de",
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://gitlab.revlv.net/laboratory/vidconvert"
+    }],
+    "type": "library",
+    "authors": [
+       {
+           "name": "Mike Ambait",
+           "email": "michaelambait16@gmail.com"
+       }
+    ],
+    "require": {},
+    "require-dev": {
+       "phpunit/phpunit": "^6.5 || ^7.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+}
