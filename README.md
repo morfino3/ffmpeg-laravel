@@ -1,5 +1,5 @@
 # Vidconvert
-PHP Library for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
+Laravel wrapper of PHP-FFmpeg: for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
 ## Requirements
 
 * PHP 7.2
@@ -9,8 +9,7 @@ PHP Library for simple video conversion, editing, resizing etc., utilizing FFMpe
 ## Configuration
 
 	php artisan vendor:publish
-
-## Installation
+	$ sudo apt update
 	$ sudo apt install ffmpeg
 
 ## Usage
