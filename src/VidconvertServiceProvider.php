@@ -8,13 +8,6 @@ use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 class VidconvertServiceProvider extends IlluminateServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
      * Perform post-registration booting of services.
      *
      * @return void
@@ -28,10 +21,6 @@ class VidconvertServiceProvider extends IlluminateServiceProvider
         // $this->publishes([
         //      __DIR__ . '/../migrations/' => database_path('/migrations'),
         //  ], 'laboratory-bucket:migrations');
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/laboratory.vidconvert.php', 'laboratory.vidconvert'
-        );
     }
 
     /**
@@ -42,21 +31,20 @@ class VidconvertServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        $this->app->bind('vidconvert.model', function($app) {
-            $asset = $app['config']->get('laboratory.vidconvert.model.asset');
-            $model = new $asset;
-            $model->setConnection($app['config']->get('database.default'));
+        // $this->app->bind('vidconvert.model', function($app) {
+        //     $asset = $app['config']->get('laboratory.vidconvert.model.asset');
+        //     $model = new $asset;
+        //     $model->setConnection($app['config']->get('database.default'));
 
-            return $model;
-        });
+        //     return $model;
+        // });
 
-        $this->app->bind('vidconvert', function($app) {
-            $path = $app['config']->get('laboratory.vidconvert.storage.path');
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laboratory.vidconvert.php', 'laboratory.vidconvert'
+        );
 
-            return new Bucket(
-                $app['vidconvert.model'],
-                $path
-            );
+        $this->app->singleton('vidconvert', function ($app) {
+            return $app->make(FFMpeg::class);
         });
     }
 

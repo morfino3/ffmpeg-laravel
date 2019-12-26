@@ -2,7 +2,7 @@
 
 namespace Laboratory\Vidconvert;
 
-use Vidconvert\Vidconvert as BaseVidconvert;
+use Ffmpeg\FfMpeg as BaseVidconvert;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;

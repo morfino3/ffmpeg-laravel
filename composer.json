@@ -12,9 +12,30 @@
            "email": "michaelambait16@gmail.com"
        }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.2",
+        "illuminate/config": "^6.0",
+        "illuminate/filesystem": "^6.0",
+        "illuminate/log": "^6.0",
+        "illuminate/support": "^6.0",
+        "league/flysystem": "^1.0.8",
+        "pbmedia/php-ffmpeg": "^0.14.1",
+        "symfony/process": "^4.3.4"
+    },
     "require-dev": {
-       "phpunit/phpunit": "^6.5 || ^7.0"
+        "mockery/mockery": "^1.2.3",
+        "phpunit/phpunit": "^8.3",
+        "twistor/flysystem-http": "^0.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laboratory\\Vidconvert\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laboratory\\Vidconvert\\Tests\\": "tests"
+        }
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
