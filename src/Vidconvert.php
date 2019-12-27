@@ -22,8 +22,9 @@ class Vidconvert
 		$vidconvertConfig = $config->get('vidconvert');
 
 		$this->vidconvert = BaseVidconvert::create([
-			'vidconvert.binaries' => Arr::get($vidconvertConfig,'vidconvert.binaries'),
-			'vidconvert.threads' => Arr::get($vidconvertConfig, 'vidconvert.threads'),
+			'ffmpeg.binaries' => Arr::get($vidconvertConfig,'ffmpeg.binaries'),
+			'ffmpeg.threads' => Arr::get($vidconvertConfig, 'ffmpeg.threads'),
+			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
 			'timeout' => Arr::get($vidconvertConfig, 'timeout'),
 		], $logger);
 

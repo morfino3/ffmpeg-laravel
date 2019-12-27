@@ -1,6 +1,6 @@
 {
     "name": "laboratory/vidconvert",
-    "description": "PHP Library for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool that can de",
+    "description": "Laravel wrapper of php-ffmpeg for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool",
     "repositories": [{
         "type": "vcs",
         "url": "https://gitlab.revlv.net/laboratory/vidconvert"
