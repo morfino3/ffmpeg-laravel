@@ -1,4 +1,4 @@
-# Vidconvert
+# Covid
 Laravel wrapper of PHP-FFmpeg: for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
 ## Requirements
 
