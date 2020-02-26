@@ -1,11 +1,11 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
 use Exception;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class VidconvertServiceProvider extends IlluminateServiceProvider
+class CovidServiceProvider extends IlluminateServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -15,8 +15,8 @@ class VidconvertServiceProvider extends IlluminateServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/laboratory.vidconvert.php' => config_path('laboratory.bucket.php'),
-        ], 'laboratory-vidconvert:config');
+            __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.bucket.php'),
+        ], 'laboratory-covid:config');
 
         // $this->publishes([
         //      __DIR__ . '/../migrations/' => database_path('/migrations'),
@@ -40,10 +40,10 @@ class VidconvertServiceProvider extends IlluminateServiceProvider
         // });
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/laboratory.vidconvert.php', 'laboratory.vidconvert'
+            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.vidconvert'
         );
 
-        $this->app->singleton('vidconvert', function ($app) {
+        $this->app->singleton('covid', function ($app) {
             return $app->make(FFMpeg::class);
         });
     }
@@ -56,8 +56,8 @@ class VidconvertServiceProvider extends IlluminateServiceProvider
     public function provides()
     {
         return [
-            'vidconvert',
-            'vidconvert.model'
+            'covid',
+            'covid.model'
         ];
     }
 

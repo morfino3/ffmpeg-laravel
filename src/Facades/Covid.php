@@ -1,10 +1,10 @@
 <?php
 
-namespace Laboratory\Vidconvert\Facades;
+namespace Laboratory\Covid\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
-class Vidconvert extends BaseFacade
+class Covid extends BaseFacade
 {
 	/**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Vidconvert extends BaseFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'vidconvert';
+        return 'covid';
     }
 }

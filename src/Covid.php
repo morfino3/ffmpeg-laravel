@@ -1,19 +1,19 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
-use Ffmpeg\FfMpeg as BaseVidconvert;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
+use Ffmpeg\FfMpeg as BaseVidconvert;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
-class Vidconvert
+class Covid
 {
 	protected static $filesystems;
 	private static $temporaryFiles = [];
 	protected $disk; // change variable name to a more prevalent chuchu e.g: folder
-	protected $vidconvert; //ffmpeg
+	protected $covid; //ffmpeg
 
 	public function __convert(Filesystems $filesystems, ConfigRepository $config, LoggerInterface $logger)
 	{
@@ -21,15 +21,15 @@ class Vidconvert
 
 		$vidconvertConfig = $config->get('vidconvert');
 
-		$this->vidconvert = BaseVidconvert::create([
-			'ffmpeg.binaries' => Arr::get($vidconvertConfig,'ffmpeg.binaries'),
-			'ffmpeg.threads' => Arr::get($vidconvertConfig, 'ffmpeg.threads'),
+		$this->covid = BaseCovid::create([
+			'ffmpeg.binaries' => Arr::get($covidConfig,'ffmpeg.binaries'),
+			'ffmpeg.threads' => Arr::get($covidConfig, 'ffmpeg.threads'),
 			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
-			'timeout' => Arr::get($vidconvertConfig, 'timeout'),
+			'timeout' => Arr::get($covidConfig, 'timeout'),
 		], $logger);
 
 		$this->fromDisk(
-			Arr::get($vidconvert, 'default_disk', $config->get('filesystems.default'))
+			Arr::get($covid, 'default_disk', $config->get('filesystems.default'))
 		);
 	}
 
@@ -40,7 +40,7 @@ class Vidconvert
 
 	public function newTemporaryFile(): string
 	{
-		return self::$temporaryFiles[] = tempnam(sys_get_temp_dir(), 'vidconvert');
+		return self::$temporaryFiles[] = tempnam(sys_get_temp_dir(), 'covid');
 	}
 
 	public function cleanupTemporaryFiles()
@@ -50,14 +50,14 @@ class Vidconvert
         }
 	}
 
-	public function fromFilesystem(Filesystem $filesystem): Vidconvert
+	public function fromFilesystem(Filesystem $filesystem): Covid
 	{
 		$this->disk = new Disk($filesystem);
 
 		return $this;
 	}
 
-	public function fromDisk(string $diskName) : Vidconvert
+	public function fromDisk(string $diskName) : Covid
 	{
 		$filesystem = static::getFilesystems()->disk($diskName);
 		$this->disk = new Disk($filesystem);
@@ -70,18 +70,18 @@ class Vidconvert
 		$file = $this->disk->newFile($path);
 
 		if ($this->disk->isLocal()){
-			$vidconvertPathFile = $file->getFullPath();
+			$covidPathFile = $file->getFullPath();
 		} else {
-			$vidconvertPathFile = static::newTemporaryFile();
+			$covidPathFile = static::newTemporaryFile();
 
 			stream_copy_to_stream(
 				$this->disk->getDriver()->readStream($path),
-				fopen($vidconvert, 'w')
+				fopen($covid, 'w')
 			);
 		}
 
-		$vidconvertMedia = $this->vidconvert->open($vidconvertPathFile);
+		$covidMedia = $this->covid->open($covidPathFile);
 
-		return new Media($file, $vidconvertMedia);
+		return new Media($file, $covidMedia);
 	}
 }

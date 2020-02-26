@@ -1,10 +1,10 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
-use FFMpeg\Filters\Video\VideoFilterInterface;
-use FFMpeg\Format\VideoInterface;
 use FFMpeg\Media\Video;
+use FFMpeg\Format\VideoInterface;
+use FFMpeg\Filters\Video\VideoFilterInterface;
 
 class SegmentedFilter implements VideoFilterInterface
 {

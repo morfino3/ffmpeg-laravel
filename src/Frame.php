@@ -1,8 +1,8 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
-use Vidconvert\Media\Frame as BaseFrame;
+use Covid\Media\Frame as BaseFrame;
 
 /**
  * @method BaseFrame save($pathfile, $accurate = false)

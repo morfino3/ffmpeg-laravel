@@ -1,6 +1,6 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;

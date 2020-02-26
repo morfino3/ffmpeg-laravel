@@ -1,9 +1,9 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
-use Vidconvert\Format\VideoInterface;
-use Laboratory\Vidconvert\SegmentedExporter;
+use Covid\Format\VideoInterface;
+use Laboratory\Covid\SegmentedExporter;
 
 class HLSPlaylistExporter extends MediaExporter
 {

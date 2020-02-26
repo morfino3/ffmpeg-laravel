@@ -1,9 +1,9 @@
 {
-    "name": "laboratory/vidconvert",
+    "name": "laboratory/covid",
     "description": "Laravel wrapper of php-ffmpeg for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool",
     "repositories": [{
         "type": "vcs",
-        "url": "https://gitlab.revlv.net/laboratory/vidconvert"
+        "url": "https://gitlab.revlv.net/laboratory/covid"
     }],
     "type": "library",
     "authors": [
@@ -13,7 +13,7 @@
        }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "illuminate/config": "^6.0",
         "illuminate/filesystem": "^6.0",
         "illuminate/log": "^6.0",
@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Laboratory\\Vidconvert\\": "src"
+            "Laboratory\\Covid\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laboratory\\Vidconvert\\Tests\\": "tests"
+            "Laboratory\\Covid\\Tests\\": "tests"
         }
     },
     "scripts": {

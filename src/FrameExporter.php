@@ -1,6 +1,6 @@
 <?php
 
-namespace Laboratory\Vidconvert;
+namespace Laboratory\Covid;
 
 class FrameExporter extends MediaExporter
 {
