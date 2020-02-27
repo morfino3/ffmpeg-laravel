@@ -16,11 +16,8 @@ class CovidServiceProvider extends IlluminateServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.covid.php'),
-        ], 'laboratory-covid:config');
+        ], 'config');
 
-        // $this->mergeConfigFrom(
-        //     __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
-        // );
     }
 
     /**
@@ -31,14 +28,6 @@ class CovidServiceProvider extends IlluminateServiceProvider
      */
     public function register()
     {
-        // $this->app->bind('vidconvert.model', function($app) {
-        //     $asset = $app['config']->get('laboratory.vidconvert.model.asset');
-        //     $model = new $asset;
-        //     $model->setConnection($app['config']->get('database.default'));
-
-        //     return $model;
-        // });
-
         $this->mergeConfigFrom(
             __DIR__ . '/../config/laboratory.covid.php', 'covid'
         );
