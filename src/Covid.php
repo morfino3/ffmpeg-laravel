@@ -4,7 +4,7 @@ namespace Laboratory\Covid;
 
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
-use Ffmpeg\FfMpeg as BaseVidconvert;
+use Ffmpeg\FfMpeg as BaseFfMpeg;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
@@ -21,7 +21,7 @@ class Covid
 
 		$vidconvertConfig = $config->get('vidconvert');
 
-		$this->covid = BaseCovid::create([
+		$this->covid = BaseFfMpeg::create([
 			'ffmpeg.binaries' => Arr::get($covidConfig,'ffmpeg.binaries'),
 			'ffmpeg.threads' => Arr::get($covidConfig, 'ffmpeg.threads'),
 			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),

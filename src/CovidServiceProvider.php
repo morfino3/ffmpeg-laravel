@@ -2,7 +2,7 @@
 
 namespace Laboratory\Covid;
 
-use Exception;
+use Laboratory\Covid\FFMpeg;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class CovidServiceProvider extends IlluminateServiceProvider
@@ -40,7 +40,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
         // });
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.vidconvert'
+            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
         );
 
         $this->app->singleton('covid', function ($app) {

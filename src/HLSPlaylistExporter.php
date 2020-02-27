@@ -146,6 +146,6 @@ class HLSPlaylistExporter extends MediaExporter
             $this->getMasterPlaylistContents()
         );
 
-        return $this;	
+        return $this;
 	}
 }

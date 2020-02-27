@@ -25,7 +25,7 @@ class Disk
 
 	public static function fromName(string $name): Disk
 	{
-		$adapter = Vidconvert::getFilesystems()->disk($name);
+		$adapter = Covid::getFilesystems()->disk($name);
 
 		return new static($adapter);
 	}
