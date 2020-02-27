@@ -1,10 +1,6 @@
 {
     "name": "laboratory/covid",
     "description": "Laravel wrapper of php-ffmpeg for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool",
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://gitlab.revlv.net/laboratory/covid"
-    }],
     "type": "library",
     "authors": [
        {
@@ -39,5 +35,5 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
-    },
+    }
 }
