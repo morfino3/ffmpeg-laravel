@@ -15,8 +15,8 @@ class CovidServiceProvider extends IlluminateServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.covid.php'),
-        ], 'config');
+            __DIR__ . '/../config/laboratory.covid.php' => config_path('covid.php'),
+        ], 'laboratory-covid:config');
 
     }
 
