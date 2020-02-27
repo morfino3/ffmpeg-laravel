@@ -18,9 +18,9 @@ class CovidServiceProvider extends IlluminateServiceProvider
             __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.bucket.php'),
         ], 'laboratory-covid:config');
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
-        );
+        // $this->mergeConfigFrom(
+        //     __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
+        // );
     }
 
     /**
@@ -39,9 +39,9 @@ class CovidServiceProvider extends IlluminateServiceProvider
         //     return $model;
         // });
 
-        // $this->mergeConfigFrom(
-        //     __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
-        // );
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
+        );
 
         $this->app->singleton('covid', function ($app) {
             return $app->make(FFMpeg::class);
