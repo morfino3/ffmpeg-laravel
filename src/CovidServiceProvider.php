@@ -2,7 +2,7 @@
 
 namespace Laboratory\Covid;
 
-use Laboratory\Covid\FFMpeg;
+use Laboratory\Covid\Covid;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class CovidServiceProvider extends IlluminateServiceProvider
@@ -33,7 +33,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
         );
 
         $this->app->singleton('covid', function ($app) {
-            return $app->make(FFMpeg::class);
+            return $app->make(Covid::class);
         });
     }
 
