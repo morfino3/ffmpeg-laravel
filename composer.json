@@ -35,5 +35,18 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laboratory\\Covid\\FFMpegServiceProvider"
+            ],
+            "aliases": {
+                "Covid": "Laboratory\\Covid\\Facades\\Covid"
+            }
+        }
     }
 }
