@@ -15,7 +15,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.bucket.php'),
+            __DIR__ . '/../config/laboratory.covid.php' => config_path('laboratory.covid.php'),
         ], 'laboratory-covid:config');
 
         // $this->mergeConfigFrom(
@@ -40,7 +40,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
         // });
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/laboratory.covid.php', 'laboratory.covid'
+            __DIR__ . '/../config/laboratory.covid.php', 'covid'
         );
 
         $this->app->singleton('covid', function ($app) {
