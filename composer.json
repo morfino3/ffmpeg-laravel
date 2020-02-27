@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laboratory\\Covid\\FFMpegServiceProvider"
+                "Laboratory\\Covid\\CovidServiceProvider"
             ],
             "aliases": {
                 "Covid": "Laboratory\\Covid\\Facades\\Covid"
