@@ -23,10 +23,10 @@ class Covid
 		$ffmpegConfig = $config->get('covid');
 
 		$this->covid = BaseFFMpeg::create([
-			'ffmpeg.binaries' => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
-			'ffmpeg.threads' => Arr::get($ffmpegConfig, 'ffmpeg.threads'),
-			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
-			'timeout' => Arr::get($ffmpegConfig, 'timeout'),
+			'ffmpeg.binaries' 	=> Arr::get($ffmpegConfig,'ffmpeg.binaries'),
+			'ffmpeg.threads' 	=> Arr::get($ffmpegConfig, 'ffmpeg.threads'),
+			'ffprobe.binaries'  => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
+			'timeout' 			=> Arr::get($ffmpegConfig, 'timeout'),
 		], $logger);
 
 		$this->fromDisk(
@@ -39,7 +39,7 @@ class Covid
         return static::$filesystems;
     }
 
-	public function newTemporaryFile(): string
+	public static function newTemporaryFile(): string
 	{
 		return self::$temporaryFiles[] = tempnam(sys_get_temp_dir(), 'covid');
 	}
