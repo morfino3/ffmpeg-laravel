@@ -6,8 +6,8 @@ use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 use FFMpeg\FFMpeg as BaseFFMpeg;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Filesystem\Factory as Filesystems;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Covid
 {
@@ -22,7 +22,7 @@ class Covid
 
 		$ffmpegConfig = $config->get('covid');
 
-		$this->covid = BaseFfMpeg::create([
+		$this->covid = BaseFFMpeg::create([
 			'ffmpeg.binaries' => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
 			'ffmpeg.threads' => Arr::get($ffmpegConfig, 'ffmpeg.threads'),
 			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
@@ -35,7 +35,7 @@ class Covid
 	}
 
 	public static function getFilesystems(): Filesystems
-    {
+	{
         return static::$filesystems;
     }
 
