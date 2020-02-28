@@ -20,17 +20,17 @@ class Covid
 	{
 		static::$filesystems = $filesystems;
 
-		$vidconvertConfig = $config->get('vidconvert');
+		$ffmpegConfig = $config->get('vidconvert');
 
 		$this->covid = BaseFfMpeg::create([
-			'ffmpeg.binaries' => Arr::get($covidConfig,'ffmpeg.binaries'),
-			'ffmpeg.threads' => Arr::get($covidConfig, 'ffmpeg.threads'),
+			'ffmpeg.binaries' => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
+			'ffmpeg.threads' => Arr::get($ffmpegConfig, 'ffmpeg.threads'),
 			'ffprobe.binaries' => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
-			'timeout' => Arr::get($covidConfig, 'timeout'),
+			'timeout' => Arr::get($ffmpegConfig, 'timeout'),
 		], $logger);
 
 		$this->fromDisk(
-			Arr::get($covid, 'default_disk', $config->get('filesystems.default'))
+			Arr::get($ffmpegConfig, 'default_disk', $config->get('filesystems.default'))
 		);
 	}
 
@@ -71,18 +71,18 @@ class Covid
 		$file = $this->disk->newFile($path);
 
 		if ($this->disk->isLocal()){
-			$covidPathFile = $file->getFullPath();
+			$ffmpegPathFile = $file->getFullPath();
 		} else {
-			$covidPathFile = static::newTemporaryFile();
+			$ffmpegPathFile = static::newTemporaryFile();
 
 			stream_copy_to_stream(
 				$this->disk->getDriver()->readStream($path),
-				fopen($covid, 'w')
+				fopen($ffmpegPathFile, 'w')
 			);
 		}
 
-		$covidMedia = $this->covid->open($covidPathFile);
+		$ffmpegMedia = $this->covid->open($ffmpegPathFile);
 
-		return new Media($file, $covidMedia);
+		return new Media($file, $ffmpegMedia);
 	}
 }
