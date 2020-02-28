@@ -4,9 +4,10 @@ namespace Laboratory\Covid;
 
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
-use Ffmpeg\FfMpeg as BaseFfMpeg;
+use FFMpeg\FFMpeg as BaseFFMpeg;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Filesystem\Factory as Filesystems;
 
 class Covid
 {
