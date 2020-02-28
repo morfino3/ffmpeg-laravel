@@ -34,10 +34,10 @@ class Covid
 		);
 	}
 
-	public function getFilesystems(): Filesystems
-	{
-		return static::$filesystems;
-	}
+	public static function getFilesystems(): Filesystems
+    {
+        return static::$filesystems;
+    }
 
 	public function newTemporaryFile(): string
 	{
