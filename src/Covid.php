@@ -20,7 +20,7 @@ class Covid
 	{
 		static::$filesystems = $filesystems;
 
-		$ffmpegConfig = $config->get('vidconvert');
+		$ffmpegConfig = $config->get('covid');
 
 		$this->covid = BaseFfMpeg::create([
 			'ffmpeg.binaries' => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
