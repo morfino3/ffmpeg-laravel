@@ -16,7 +16,7 @@ class Covid
 	protected $disk; // change variable name to a more prevalent chuchu e.g: folder
 	protected $covid; //ffmpeg
 
-	public function __convert(Filesystems $filesystems, ConfigRepository $config, LoggerInterface $logger)
+	public function __construct(Filesystems $filesystems, ConfigRepository $config, LoggerInterface $logger)
 	{
 		static::$filesystems = $filesystems;
 
