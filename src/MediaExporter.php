@@ -93,7 +93,7 @@ class MediaExporter
     private function getDestinationPathForSaving(File $file): string
     {
         if (!$file->getDisk()->isLocal()) {
-            $tempName = FFMpeg::newTemporaryFile();
+            $tempName = Covid::newTemporaryFile();
 
             return $tempName . '.' . $file->getExtension();
         }

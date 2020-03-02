@@ -3,10 +3,10 @@
 namespace Laboratory\Covid;
 
 use Closure;
-use FFmpeg\Coordinate\TimeCode;
-use FFmpeg\Filters\Audio\SimpleFilter;
-use FFmpeg\Filters\FilterInterface;
-use FFmpeg\Media\MediaTypeInterface;
+use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\Filters\Audio\SimpleFilter;
+use FFMpeg\Filters\FilterInterface;
+use FFMpeg\Media\MediaTypeInterface;
 
 /**
  * @method mixed save(\FFMpeg\Format\FormatInterface $format, $outputPathfile)
@@ -124,7 +124,7 @@ class Media
 	public function __call($method, $parameters)
 	{
 		return $this->selfOrArgument(
-			call_user_func_array([$this->media, $method], $parameters);
-		);
+			call_user_func_array([$this->media, $method], $parameters)
+		)
 	}
 }
