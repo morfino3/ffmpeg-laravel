@@ -125,6 +125,6 @@ class Media
 	{
 		return $this->selfOrArgument(
 			call_user_func_array([$this->media, $method], $parameters)
-		)
+		);
 	}
 }
