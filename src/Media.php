@@ -62,14 +62,14 @@ class Media
 		return new HLSPlaylistExporter($this);
 	}
 
-	public function getFrameFromString(string $timecode): Frame
+	public function makeThumbnailFromString(string $timecode): Frame
 	{
 		return $this->getFrameFromTimecode(
 			TimeCode::fromString($timecode)
 		);
 	}
 
-	public function getFrameFromSeconds(float $quantity): Frame
+	public function makeThumbnailFromSeconds(float $quantity): Frame
 	{
 		return $this->getFrameFromTimecode(
 			TimeCode::fromSeconds($quantity)
