@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default_disk' => 'local',
+    'default_disk' => 'videos_disk',
 
     'ffmpeg' => [
         'binaries' => '/usr/bin/ffmpeg',
