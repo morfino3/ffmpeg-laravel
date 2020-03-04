@@ -81,7 +81,7 @@ class Media
 	 * @param Float
 	 * @return Frame object
 	 **/
-	public function getThumbnail(float $quantity): Frame
+	public function getThumbnail(float $quantity = null): Frame
 	{
 		if (!$quantity->count() && $this->getDuration() > 9) {
 			$quantity = 10;
