@@ -52,9 +52,16 @@ class Media
 	{
 		$stream = $this->getFirstStream();
 
-		if ($stream->has('duration')) {
-			return $format->get('duration') * 1000;
-		}
+        if ($stream->has('duration')) {
+            return $stream->get('duration') * 1000;
+        }
+
+        $format = $this->media->getFormat();
+
+        if ($format->has('duration')) {
+            return $format->get('duration') * 1000;
+        }
+
 	}
 
 	public function export(): MediaExporter
