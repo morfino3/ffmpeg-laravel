@@ -90,10 +90,12 @@ class Media
 	 **/
 	public function getThumbnail(float $quantity = null): Frame
 	{
-		if (is_null($quantity) && $this->getDuration() > 9) {
-			$quantity = 10;
-		} else {
-			throw new \Exception('File should be atleast 10 seconds in length!');
+		if (is_null($quantity)) {
+			if ($this->getDuration() > 9) {
+				$quantity = 10;
+			} else {
+				throw new \InvalidArgumentException('File should be atleast 10 seconds in length.');
+			}
 		}
 
 		return $this->getFrameFromTimecode(
