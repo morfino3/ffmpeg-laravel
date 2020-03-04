@@ -33,7 +33,12 @@ class Media
 		return $this->file;
 	}
 
-	public function getDurationInSeconds(): int
+	/**
+	 * Get duration of file in seconds
+	 *
+	 * @return int
+	 **/
+	public function getDuration(): int
 	{
 		return $this->getDurationInMiliseconds() / 1000;
 	}
@@ -62,15 +67,28 @@ class Media
 		return new HLSPlaylistExporter($this);
 	}
 
-	public function makeThumbnailFromString(string $timecode): Frame
+	public function getThumbnailFromString(string $timecode): Frame
 	{
 		return $this->getFrameFromTimecode(
 			TimeCode::fromString($timecode)
 		);
 	}
 
-	public function makeThumbnailFromSeconds(float $quantity): Frame
+	/**
+	 * Generate thumbnail for the first 10 secs of the video
+	 * when no params passed, otherwise generate thumbnail
+	 * using Seconds from quantity parameter.
+	 * @param Float
+	 * @return Frame object
+	 **/
+	public function getThumbnail(float $quantity): Frame
 	{
+		if (!$quantity->count() && $this->getDuration() > 9) {
+			$quantity = 10;
+		} else {
+			throw new InvalidArgumentException('File should be atleast 10 seconds in length!');
+		}
+
 		return $this->getFrameFromTimecode(
 			TimeCode::fromSeconds($quantity)
 		);
