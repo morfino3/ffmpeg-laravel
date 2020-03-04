@@ -82,19 +82,24 @@ class Media
 	}
 
 	/**
-	 * Generate thumbnail for the first 10 secs of the video
-	 * when no params passed, otherwise generate thumbnail
-	 * using Seconds from quantity parameter.
+	 * Generates thumbnail from 10 seconds mark of the video
+	 * otherwise generate from seconds mark from the optional
+	 * parameter
 	 * @param Float
 	 * @return Frame object
 	 **/
 	public function getThumbnail(float $quantity = null): Frame
 	{
+		$min = $this->getDuration();
 		if (is_null($quantity)) {
 			if ($this->getDuration() > 9) {
 				$quantity = 10;
 			} else {
 				throw new \InvalidArgumentException('File should be atleast 10 seconds in length.');
+			}
+		} elseif (!is_null($quantity)) {
+			if ($this->getDuration() < $quantity) {
+				throw new \InvalidArgumentException("Parameter passed exceeds file's duration.");
 			}
 		}
 
