@@ -90,7 +90,6 @@ class Media
 	 **/
 	public function getThumbnail(float $quantity = null): Frame
 	{
-		$min = $this->getDuration();
 		if (is_null($quantity)) {
 			if ($this->getDuration() > 9) {
 				$quantity = 10;
