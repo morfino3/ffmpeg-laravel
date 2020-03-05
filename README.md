@@ -16,14 +16,22 @@ Publish vendor
 
 Go to /config/filesystems.php and setup disk directory and create it as well. This is where the file will temporarily be stored when converting; specify the driver to local for /storage (default is videos_disk) e.g:
 
-	``` php
 	'videos_disk' => [
             'driver' => 'local',
             'root' => storage_path('videos_disk'),
         ]
-	```
-## Usage
 
+## Usage
+Generate thumbnail:
+```php
+// getThumbnail() , generates thumbnail at 10 secs mark, when no params passed
+Covid::fromDisk('videos')
+            ->open('Clock_Face_2Videvo.mov')
+            ->getThumbnail()
+            ->export()
+            ->toDisk('thumbnails')
+            ->save('testClockAt10.png');
+```
 
 
 ## Testing
@@ -38,7 +46,7 @@ It is better to use a Queued Job in laravel to implement video convertion etc. "
 So, what Laravel Queues basically does is, it stacks up time consuming tasks, create their jobs and dispatches them when they are intended to be. This way the user won’t notice lag in their overall experience when performing such time consuming operation.
 
 The queue configuration file is stored in config/queue.php. In this file you will find connection configurations for each of the queue drivers that are included with Laravel, which includes a database, Beanstalkd, Amazon SQS, Redis, and a synchronous driver that will execute jobs immediately (for local use). A null queue driver is also included which simply discards queued jobs."
-References: [Why should use laravel queues?] (https://www.amitmerchant.com/why-you-should-use-laravel-queues)
+References: https://www.amitmerchant.com/why-you-should-use-laravel-queues
 
 
 ## Credits
