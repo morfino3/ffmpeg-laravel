@@ -22,15 +22,45 @@ Go to /config/filesystems.php and setup disk directory and create it as well. Th
         ]
 
 ## Usage
+Resize video (pass closure to addFilter() function):
+
+```php
+// Set the appropriate format and video/audio codec e.g: X264 for MPEG-4 conversion; MP3 for mp3 conversion
+$format = new \FFMpeg\Format\Video\X264('libmp3lame','libx264');
+
+// We can ommit the fromDisk() method as long as there is a value in the
+// default_disk in the project's /config/covid.php
+Covid::open('videos.mp4')
+      ->addFilter(function ($filters) {
+        $filters->resize(new \FFMpeg\Coordinate\Dimension(640, 480));
+      })
+      ->export()
+      //toDisk() can be ommited, it will save in the directory of video by default
+      ->toDisk('downloadable_videos')
+      ->save('filename.mp4');
+
+```
+You can add a listener to the format and then broadcast an Event (with Laravel). The format classes implement the FFMpeg\Format\ProgressableInterface interface. First make the event with the Artisan CLI and make sure the event implements the ShouldBroadcast interface.
+```bash
+php artisan make:event TranscodingProgressUpdated
+```
+Then dispatch an event in the progress listener:
+```php
+$format = new \FFMpeg\Format\Video\X264;
+$format->on('progress', function($video, $format, $percentage) {
+    event(new TranscodingProgressUpdated($percentage));
+});
+```
+
 Generate thumbnail:
 ```php
 // getThumbnail() , generates thumbnail at 10 secs mark, when no params passed
 Covid::fromDisk('videos')
-            ->open('Clock_Face_2Videvo.mov')
+            ->open('videos.mp4')
             ->getThumbnail()
             ->export()
             ->toDisk('thumbnails')
-            ->save('testClockAt10.png');
+            ->save('test.png');
 ```
 
 

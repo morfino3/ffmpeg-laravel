@@ -43,6 +43,44 @@ class Media
 		return $this->getDurationInMiliseconds() / 1000;
 	}
 
+	/**
+	 * Get the codec of the file
+	 *
+	 * @return string
+	 **/
+	public function getCodec(): string
+	{
+		$stream = $this->getFirstStream();
+
+		if ($stream->has('codec_name')) {
+            return $stream->get('codec_name');
+        }
+	}
+
+	/**
+	 * Get video width
+	 *
+	 * @return integer
+	 **/
+	public function getVideoWidth()
+	{
+		$dimensions = $this->media->getStreams()->first()->getDimensions();
+
+		return $dimensions->getWidth();
+	}
+
+	/**
+	 * Get video height
+	 *
+	 * @return integer
+	 **/
+	public function getVideoHeight()
+	{
+		$dimensions = $this->media->getStreams()->first()->getDimensions();
+
+		return $dimensions->getHeight();
+	}
+
 	public function getFirstStream()
 	{
 		return $this->media->getStreams()->first();
