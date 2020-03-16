@@ -81,6 +81,21 @@ class Media
 		return $dimensions->getHeight();
 	}
 
+	/**
+	 * Get video resolution, width x height
+	 *
+	 * @return string
+	 **/
+	public function getResolution() : string
+	{
+		$dimensions = $this->media->getStreams()->first()->getDimensions();
+
+		$width = $dimensions->getWidth();
+		$height = $dimensions->getHeight();
+
+		return $width . ' x ' . $height;
+	}
+
 	public function getFirstStream()
 	{
 		return $this->media->getStreams()->first();
@@ -121,10 +136,14 @@ class Media
 
 	/**
 	 * Generates thumbnail from 10 seconds mark of the video
-	 * otherwise generate from seconds mark from the optional
-	 * parameter
+	 * otherwise generate from seconds mark from the parameters
+	 * passed
 	 * @param Float
 	 * @return Frame object
+	 * @return RuntimeException - In case the files
+	 * length is lower than 10 secs
+	 * @return InvalidArgumentException - In case the parameter passed
+	 * exceeds file's duration
 	 **/
 	public function getThumbnail(float $quantity = null): Frame
 	{
@@ -132,9 +151,9 @@ class Media
 			if ($this->getDuration() > 9) {
 				$quantity = 10;
 			} else {
-				throw new \InvalidArgumentException('File should be atleast 10 seconds in length.');
+				throw new \RuntimeException('File should be atleast 10 seconds in length.');
 			}
-		} elseif (!is_null($quantity)) {
+		} else {
 			if ($this->getDuration() < $quantity) {
 				throw new \InvalidArgumentException("Parameter passed exceeds file's duration.");
 			}

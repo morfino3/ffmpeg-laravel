@@ -63,6 +63,23 @@ Covid::fromDisk('videos')
             ->save('test.png');
 ```
 
+Check codec use by the file:
+```php
+$checkCodec = Covid::fromDisk('videos')
+            ->open('Clock_Face_2Videvo.mov')
+            ->getCodec();
+
+echo $checkCodec;
+```
+
+Get the resolution of the video:
+```php
+$width = Covid::fromDisk('videos')
+            ->open('Clock_Face_2Videvo.mov')
+            ->getResolution();
+
+echo $width;
+```
 
 ## Testing
 
