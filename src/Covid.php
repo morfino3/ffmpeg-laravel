@@ -2,87 +2,147 @@
 
 namespace Laboratory\Covid;
 
+use Exception;
+use FFMpeg\Media\Frame;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
+use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg as BaseFFMpeg;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Contracts\Filesystem\Factory as Filesystems;
+use FFMpeg\Format\Video\X264 as X264;
+use FFMpeg\Format\Audio\Mp3 as MP3Codec;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Covid
 {
-	protected static $filesystems;
-	private static $temporaryFiles = [];
-	protected $disk; // change variable name to a more prevalent chuchu e.g: folder
-	protected $covid; //ffmpeg
+    protected $ffmpeg;
+    protected $encoder;
+    protected $filepath;
+    protected $formats = [
+        'mp4' => new X264('libmp3lame', 'libx264');
+    ];
+    protected $dimensions = [
 
-	public function __construct(Filesystems $filesystems, ConfigRepository $config, LoggerInterface $logger)
-	{
-		static::$filesystems = $filesystems;
+    ];
 
-		$ffmpegConfig = $config->get('covid');
+    public function __construct(ConfigRepository $config, LoggerInterface $logger, Media $media = null, $encoder)
+    {
+        $ffmpegConfig = $config->get('covid');
 
-		$this->covid = BaseFFMpeg::create([
-			'ffmpeg.binaries' 	=> Arr::get($ffmpegConfig,'ffmpeg.binaries'),
-			'ffmpeg.threads' 	=> Arr::get($ffmpegConfig, 'ffmpeg.threads'),
-			'ffprobe.binaries'  => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
-			'timeout' 			=> Arr::get($ffmpegConfig, 'timeout'),
-		], $logger);
+        $this->ffmpeg = BaseFFMpeg::create([
+            'ffmpeg.binaries'   => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
+            'ffmpeg.threads'    => Arr::get($ffmpegConfig, 'ffmpeg.threads'),
+            'ffprobe.binaries'  => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
+            'timeout'           => Arr::get($ffmpegConfig, 'timeout'),
+        ], $logger);
 
-		$this->fromDisk(
-			Arr::get($ffmpegConfig, 'default_disk', $config->get('filesystems.default'))
-		);
-	}
-
-	public static function getFilesystems(): Filesystems
-	{
-        return static::$filesystems;
+        $this->media = $media;
+        $this->encoder = $encoder;
     }
 
-	public static function newTemporaryFile(): string
-	{
-		return self::$temporaryFiles[] = tempnam(sys_get_temp_dir(), 'covid');
-	}
-
-	public function cleanupTemporaryFiles()
-	{
-		foreach (self::$temporaryFiles as $path) {
-            @unlink($path);
+    public function open($filepath): Media
+    {
+        if (!file_exists($filepath)) {
+            throw new Exception(sprintf('%s doesn\'t exist.', $filepath));
         }
-	}
 
-	public function fromFilesystem(Filesystem $filesystem): Covid
-	{
-		$this->disk = new Disk($filesystem);
+        $this->filepath = $filepath;
 
-		return $this;
-	}
+        $ffmpegMedia = $this->ffmpeg->open($filepath);
 
-	public function fromDisk(string $diskName) : Covid
-	{
-		$filesystem = static::getFilesystems()->disk($diskName);
-		$this->disk = new Disk($filesystem);
+        return new Media($file, $ffmpegMedia);
+    }
 
-		return $this;
-	}
+    protected function encode($filepath, $options)
+    {
+        $video = $this->encoder->open($filepath);
 
-	public function open($path): Media
-	{
-		$file = $this->disk->newFile($path);
+        [$filename, $extension] = explode('.', $filepath);
 
-		if ($this->disk->isLocal()){
-			$ffmpegPathFile = $file->getFullPath();
-		} else {
-			$ffmpegPathFile = static::newTemporaryFile();
+        if (in_array($extension, $this->formats)) {
+            $format = new $this->formats[$extension]('libmp3lame', 'libx264');
+        }
+    }
 
-			stream_copy_to_stream(
-				$this->disk->getDriver()->readStream($path),
-				fopen($ffmpegPathFile, 'w')
-			);
-		}
+    /**
+     * Generates thumbnail from 10 second mark of the video
+     * otherwise generate thumbnail from the parameters passed
+     * @param Float
+     * @return Frame object
+     * @return RuntimeException - In case the files
+     * length is lower than 10 secs
+     * @return InvalidArgumentException - In case the parameter passed
+     * exceeds file's duration
+     **/
+    public function getThumbnail(float $quantity = null): Frame
+    {
+        if (is_null($quantity)) {
+            if ($this->getDuration() > 9) {
+                $quantity = 10;
+            } else {
+                throw new \RuntimeException('File should be atleast 10 seconds in length.');
+            }
+        } else {
+            if ($this->getDuration() < $quantity) {
+                throw new \InvalidArgumentException("Parameter passed exceeds file's duration.");
+            }
+        }
 
-		$ffmpegMedia = $this->covid->open($ffmpegPathFile);
+        return $this->getFrameFromTimecode(
+            TimeCode::fromSeconds($quantity)
+        );
+    }
 
-		return new Media($file, $ffmpegMedia);
-	}
-}
+    public function getFrameFromTimecode(TimeCode $timecode): Frame
+    {
+        $frame = $this->media->frame($timecode);
+
+        return new Frame($this->getFile(), $frame);
+    }
+
+    /**
+     * To do: move in Some class that implements MediaInterface class
+     */
+    public function save($filename, $options = [])
+    {
+        $this->encode($this->filename, $options);
+    }
+// }
+
+// require 'vendor/autoload.php';
+
+// $ffmpeg = FFMpeg\FFMpeg::create();
+// $video = $ffmpeg->open('video.mpg');
+// $video
+//     ->filters()
+//     ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+//     ->synchronize();
+// $video
+//     ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+//     ->save('frame.jpg');
+// $video
+//     ->save(new FFMpeg\Format\Video\X264(), 'export-x264.mp4')
+//     ->save(new FFMpeg\Format\Video\WMV(), 'export-wmv.wmv')
+//     ->save(new FFMpeg\Format\Video\WebM(), 'export-webm.webm');
+
+// $format = new X264('libmp3lame', 'libx264');
+// $lowBitrateFormat = $format->setKiloBitrate(5000);
+
+// $covidInstance = Covid::open($this->video->path)
+//     ->export()
+//     ->inFormat($lowBitrateFormat)  ->save(uniqid('5000kiloBit-NoResizeW-Audio') . '.mp4');
+
+//  -- ----------------------------------------------------------------------------------
+// $covid = Covid::open('sample.mkv');
+
+// $covid->getThumbnail() <-- return the first 10 seconds of the thumbnail
+// $covid->getLength(); // return 300
+
+// $covid->getThubmnail(300) <-- get the thubmanil at 5 minute mark
+// $covid->save('egg.mp4'); // save 100% quality
+// $covid->save('egg.mp4', 80); // save 80% quality
+
+// $covid->save('egg.mp4', [
+//     'quality' => 80,
+//     'bitrate' => 5000,
+//     'audio' => false
+// ]);

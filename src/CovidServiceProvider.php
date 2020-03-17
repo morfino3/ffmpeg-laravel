@@ -45,8 +45,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
     public function provides()
     {
         return [
-            'covid',
-            'covid.model'
+            'covid'
         ];
     }
 

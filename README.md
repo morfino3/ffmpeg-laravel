@@ -1,5 +1,5 @@
 # Covid
-A simplified Laravel wrapper of PHP-FFmpeg based on Pascal Baljet's laravel-ffmpeg: for simple video conversion, thumbnail generation, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
+A simplified Laravel wrapper of PHP-FFMpeg based on Pascal Baljet's laravel-ffmpeg: for simple video conversion, thumbnail generation, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
 ## Requirements
 
 * PHP 7.4
@@ -10,6 +10,18 @@ Install the ffmpeg
 
 	$ sudo apt update
 	$ sudo apt install ffmpeg
+
+Add this to your composer.json as dependency
+
+  "repositories": [{
+    "url": "git@gitlab.revlv.net:laboratory/covid.git",
+    "type": "git"
+    }],
+
+  "require": {
+    "laboratory/covid": "dev-master",
+  }
+
 Publish vendor
 
 	$ php artisan vendor:publish
@@ -70,6 +82,15 @@ $checkCodec = Covid::fromDisk('videos')
             ->getCodec();
 
 echo $checkCodec;
+```
+
+Get duration of the file:
+```php
+$checkDuration = Covid::fromDisk('videos')
+            ->open('Clock_Face_2Videvo.mov')
+            ->getDuration();
+
+echo $checkDuration;
 ```
 
 Get the resolution of the video:
