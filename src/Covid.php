@@ -4,8 +4,6 @@ namespace Laboratory\Covid;
 
 use Exception;
 use FFMpeg\Media\Frame;
-use Illuminate\Support\Arr;
-use Psr\Log\LoggerInterface;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg as BaseFFMpeg;
 use FFMpeg\Format\Video\X264 as X264;
@@ -45,12 +43,7 @@ class Covid
     {
         $ffmpegConfig = $config->get('covid');
 
-        $this->ffmpeg = BaseFFMpeg::create([
-            'ffmpeg.binaries'   => Arr::get($ffmpegConfig,'ffmpeg.binaries'),
-            'ffmpeg.threads'    => Arr::get($ffmpegConfig, 'ffmpeg.threads'),
-            'ffprobe.binaries'  => Arr::get($ffmpegConfig, 'ffprobe.binaries'),
-            'timeout'           => Arr::get($ffmpegConfig, 'timeout'),
-        ], $logger);
+        $this->ffmpeg = BaseFFMpeg::create();
 
         $this->decoder = $decoder;
     }

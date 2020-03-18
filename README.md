@@ -44,8 +44,7 @@ Generate thumbnail:
 ```php
 // getThumbnail() , generates thumbnail at 10 secs mark, when no params passed
 Covid::open('videos.mp4')
-      ->getThumbnail()
-      ->save('test.jpg');
+      ->getThumbnail(public_path() . '/filename.jpg', 12);
 ```
 
 Check codec use by the file:
