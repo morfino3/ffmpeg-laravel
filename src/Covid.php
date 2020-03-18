@@ -93,9 +93,11 @@ class Covid
             }
         }
 
-        return $this->getFrameFromTimecode(
+        $thumbnail =  $this->getFrameFromTimecode(
             TimeCode::fromSeconds($quantity)
         );
+
+        return $thumbnail->save($this->filepath);
     }
 
     /**
