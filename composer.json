@@ -14,7 +14,7 @@
         "illuminate/log": "^7.0",
         "illuminate/support": "^7.0",
         "league/flysystem": "^1.0.8",
-        "php-ffmpeg/php-ffmpeg": "^0.14",
+        "php-ffmpeg/php-ffmpeg": "^0.14.0",
         "symfony/process": "^5.0"
     },
     "require-dev": {
