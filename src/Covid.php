@@ -80,7 +80,14 @@ class Covid
     {
         $ffprobe = FFMpeg\FFProbe::create();
 
-        return $ffprobe->streams($this->filepath)->videos()->first();
+        $this->ffprobe = $ffprobe;
+
+        $firststream = $ffprobe
+                        ->streams($this->filepath)
+                        ->videos()
+                        ->first();
+
+        return $firststream;
     }
 
     /**
@@ -121,7 +128,7 @@ class Covid
      **/
     public function getResolution() : string
     {
-        $dimensions = $this->ffmpegMedia->getFirstStream()->getDimensions();
+        $dimensions = $this->getFirstStream()->getDimensions();
 
         $width = $dimensions->getWidth();
         $height = $dimensions->getHeight();
@@ -146,7 +153,7 @@ class Covid
      **/
     public function getWidth()
     {
-        $dimensions = $this->ffmpegMedia->getFirstStream();
+        $dimensions = $this->getFirstStream();
 
         return $dimensions->getWidth();
     }
@@ -158,7 +165,7 @@ class Covid
      **/
     public function getHeight()
     {
-        $dimensions = $this->ffmpegMedia->getFirstStream();
+        $dimensions = $this->getFirstStream();
 
         return $dimensions->getHeight();
     }
@@ -170,7 +177,7 @@ class Covid
      **/
     public function getCodec(): string
     {
-        $stream = $this->ffmpegMedia->getFirstStream();
+        $stream = $this->getFirstStream();
 
         if ($stream->has('codec_name')) {
             return $stream->get('codec_name');
@@ -179,7 +186,7 @@ class Covid
 
     public function getDurationInMiliseconds(): float
     {
-        $stream = $this->ffmpegMedia->getFirstStream();
+        $stream = $this->getFirstStream();
 
         if ($stream->has('duration')) {
             return $stream->get('duration') * 1000;
