@@ -79,7 +79,7 @@ class Covid
      * @return InvalidArgumentException - In case the parameter passed
      * exceeds file's duration
      **/
-    public function getThumbnail(float $quantity = null)
+    public function getThumbnail(float $quantity = null): Frame
     {
         if (is_null($quantity)) {
             if ($this->getDuration() > 9) {
@@ -163,7 +163,7 @@ class Covid
         }
     }
 
-    public function getFrameFromTimecode(TimeCode $timecode)
+    public function getFrameFromTimecode(TimeCode $timecode): Frame
     {
         $frame = $this->ffmpegMedia->frame($timecode);
 
