@@ -23,17 +23,6 @@ class Covid
     protected $filepath;
 
     protected $options = [
-
-    /**
-     * Get video resolution, width x height
-     *
-     * @return string
-     **/
-    public function getResolution() : string
-    {
-        $dimensions = $this->ffmpegMedia->getStreams()->first()->getDimensions();
-
-        $width = $dimensions->getWidth();
         'channel' => [
             'key' => 'setAudioChannels',
             'value' => 2
@@ -46,10 +35,6 @@ class Covid
             'key' => 'setAudioKiloBitrate',
             'value' => 256
         ]
-    ];
-
-    protected $dimensions = [
-
     ];
 
     public function __construct(ConfigRepository $config, LoggerInterface $logger, $decoder)
@@ -75,17 +60,18 @@ class Covid
         return $ffmpegMedia;
     }
 
-
     public function getFirstStream()
     {
-        $ffprobe = FFMpeg\FFProbe::create();
+        // $ffprobe = FFMpeg\FFProbe::create();
 
-        $this->ffprobe = $ffprobe;
+        // $this->ffprobe = $ffprobe;
 
-        $firststream = $ffprobe
-                        ->streams($this->filepath)
-                        ->videos()
-                        ->first();
+        $firststream = $this->ffmpegMedia->getStreams()->first();
+
+        // $firststream = $ffprobe
+        //                 ->streams($this->filepath)
+        //                 ->videos()
+        //                 ->first();
 
         return $firststream;
     }
@@ -241,10 +227,6 @@ class Covid
 
         switch ($extension) {
             case 'mp4':
-                $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
-                break;
-
-            case 'jpg':
                 $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
                 break;
 
