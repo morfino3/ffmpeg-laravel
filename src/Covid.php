@@ -79,7 +79,7 @@ class Covid
      * @return InvalidArgumentException - In case the parameter passed
      * exceeds file's duration
      **/
-    public function getThumbnail(float $quantity = null): Frame
+    public function getThumbnail($path, float $quantity = null)
     {
         if (is_null($quantity)) {
             if ($this->getDuration() > 9) {
@@ -93,11 +93,11 @@ class Covid
             }
         }
 
-        $thumbnail =  $this->getFrameFromTimecode(
-            TimeCode::fromSeconds($quantity)
+        $this->ffmpegMedia->frame(
+            TimeCode::fromSeconds($quantity)->save($path)
         );
 
-        return $thumbnail->save($this->filepath);
+        return $this;
     }
 
     /**
@@ -163,18 +163,6 @@ class Covid
         }
     }
 
-    public function getFrameFromTimecode(TimeCode $timecode): Frame
-    {
-        $frame = $this->ffmpegMedia->frame($timecode);
-
-        return new Frame($this->filepath, $frame);
-    }
-
-    public function getFirstStream()
-    {
-        return $this->ffmpegMedia->getStreams()->first();
-    }
-
     public function getDurationInMiliseconds(): float
     {
         $stream = $this->getFirstStream();
@@ -190,6 +178,27 @@ class Covid
         }
 
     }
+
+    /**
+     * [setBitrate description]
+     */
+    public function setAudio($rate = 256)
+    {
+        $this->options['audio']['value'] = $rate;
+    }
+
+    /**
+     * [setVideoOptions description]
+     * @param [type] $format [description]
+     * @param [type] $file   [description]
+     */
+    protected function setVideoOptions($options)
+    {
+        foreach($options as $key => $value) {
+            $this->options[$key]['value'] = $value;
+        }
+    }
+
 
     /**
      * Encode
@@ -211,6 +220,10 @@ class Covid
 
         switch ($extension) {
             case 'mp4':
+                $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                break;
+
+            case 'jpg':
                 $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
                 break;
 
