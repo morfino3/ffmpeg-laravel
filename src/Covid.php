@@ -134,7 +134,7 @@ class Covid
      *
      * @return int
      **/
-    public function getLength(): int
+    public function getDuration(): int
     {
         return $this->getDurationInMiliseconds() / 1000;
     }
@@ -146,7 +146,7 @@ class Covid
      **/
     public function getWidth()
     {
-        $dimensions = $this->ffmpegMedia->getStreams()->first()->getDimensions();
+        $dimensions = $this->ffmpegMedia->getFirstStream();
 
         return $dimensions->getWidth();
     }
@@ -158,7 +158,7 @@ class Covid
      **/
     public function getHeight()
     {
-        $dimensions = $this->ffmpegMedia->getStreams()->first()->getDimensions();
+        $dimensions = $this->ffmpegMedia->getFirstStream();
 
         return $dimensions->getHeight();
     }
@@ -170,7 +170,7 @@ class Covid
      **/
     public function getCodec(): string
     {
-        $stream = $this->getFirstStream();
+        $stream = $this->ffmpegMedia->getFirstStream();
 
         if ($stream->has('codec_name')) {
             return $stream->get('codec_name');
@@ -179,7 +179,7 @@ class Covid
 
     public function getDurationInMiliseconds(): float
     {
-        $stream = $this->getFirstStream();
+        $stream = $this->ffmpegMedia->getFirstStream();
 
         if ($stream->has('duration')) {
             return $stream->get('duration') * 1000;

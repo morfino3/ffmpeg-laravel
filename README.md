@@ -58,7 +58,7 @@ echo $checkCodec;
 Get duration of the file:
 ```php
 $checkDuration = Covid::open('Clock_Face_2Videvo.mov')
-            ->getLength();
+            ->getDuration();
 
 echo $checkDuration;
 ```
