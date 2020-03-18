@@ -14,6 +14,8 @@ class Covid
 {
     protected $ffmpeg;
 
+    protected $ffprobe;
+
     protected $ffmpegMedia;
 
     protected $decoder;
@@ -21,6 +23,17 @@ class Covid
     protected $filepath;
 
     protected $options = [
+
+    /**
+     * Get video resolution, width x height
+     *
+     * @return string
+     **/
+    public function getResolution() : string
+    {
+        $dimensions = $this->ffmpegMedia->getStreams()->first()->getDimensions();
+
+        $width = $dimensions->getWidth();
         'channel' => [
             'key' => 'setAudioChannels',
             'value' => 2
@@ -62,6 +75,14 @@ class Covid
         return $ffmpegMedia;
     }
 
+
+    public function getFirstStream()
+    {
+        $ffprobe = FFMpeg\FFProbe::create();
+
+        return $ffprobe->streams($this->filepath)->videos()->first();
+    }
+
     /**
      * Generates thumbnail/frame from 10 second mark of the video
      * otherwise generate from the parameters passed
@@ -100,7 +121,7 @@ class Covid
      **/
     public function getResolution() : string
     {
-        $dimensions = $this->ffmpegMedia->getStreams()->first()->getDimensions();
+        $dimensions = $this->ffmpegMedia->getFirstStream()->getDimensions();
 
         $width = $dimensions->getWidth();
         $height = $dimensions->getHeight();
