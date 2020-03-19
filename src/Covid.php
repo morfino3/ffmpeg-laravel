@@ -66,7 +66,7 @@ class Covid
 
         // $this->ffprobe = $ffprobe;
 
-        $firststream = $this->ffmpegMedia->getStreams()->first();
+        $firststream = $this->getStreams()->first();
 
         // $firststream = $ffprobe
         //                 ->streams($this->filepath)
