@@ -18,8 +18,6 @@ class Covid
 
     protected $ffmpegMedia;
 
-    protected $decoder;
-
     protected $filepath;
 
     protected $options = [
@@ -37,13 +35,11 @@ class Covid
         ]
     ];
 
-    public function __construct(ConfigRepository $config, LoggerInterface $logger, $decoder)
+    public function __construct(ConfigRepository $config)
     {
         $ffmpegConfig = $config->get('covid');
 
         $this->ffmpeg = BaseFFMpeg::create();
-
-        $this->decoder = $decoder;
     }
 
     public function open($filepath)

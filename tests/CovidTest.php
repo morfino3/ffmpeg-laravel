@@ -2,9 +2,10 @@
 
 namespace Laboratory\Covid\Tests;
 
-use Mockery;
+use Mockery as m;
 use Exception;
 use Monolog\Logger;
+use Laboratory\Covid\Covid;
 use League\Flysystem\Adapter\Ftp;
 use Illuminate\Log\Logger as Writer;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
@@ -24,27 +25,27 @@ class CovidTest extends PHPUnitTestCase
         return require __DIR__ . '/../config/covid-ubuntu.php';
     }
 
-    public function getService(): \Laboratory\Covid
+    public function getService(): Covid
     {
-        $config = Mockery::mock(ConfigRepository::class);
+        $config = m::mock(ConfigRepository::class);
 
         $config->shouldReceive('get')->once()->with('covid')->andReturn($this->getDefaultConfig());
 
-        return new \Laboratory\Covid($config);
+        return new Covid($config);
     }
 
     public function getVideoMedia()
     {
         $covid = $this->getService();
 
-        return $covid->open(base_path() . '/tests/src/egg.mov');
+        return $covid->open(__DIR__ . '/src/egg.mov');
     }
 
     public function testSave()
     {
         $this->expectException(Exception::class);
 
-        $this->getVideoMedia()->save(base_path() . '/tests/src/newEgg.mp4', [
+        $this->getVideoMedia()->save(__DIR__ . '/src/Newegg.mp4', [
             'bitrate' => 5000,
             'audio' => 512
         ]);
