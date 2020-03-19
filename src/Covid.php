@@ -7,7 +7,7 @@ use FFMpeg\Media\Frame;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg as BaseFFMpeg;
 use FFMpeg\Format\Video\X264 as X264;
-use FFMpeg\Format\Audio\Mp3 as MP3Codec;
+use FFMpeg\Format\Audio\Mp3 as Mp3;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Covid
@@ -224,6 +224,12 @@ class Covid
         switch ($extension) {
             case 'mp4':
                 $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                break;
+            case 'webm':
+                $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                break;
+            case 'mp3':
+                $format = $this->encode(new Mp3(), $file);
                 break;
 
             default:

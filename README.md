@@ -28,6 +28,7 @@ Publish vendor
 
 
 ## Usage
+Convert video -change quality
 
 ```php
 
@@ -47,30 +48,6 @@ Covid::open('videos.mp4')
       ->getThumbnail(public_path() . '/filename.jpg', 12);
 ```
 
-Check codec use by the file:
-```php
-$checkCodec = Covid::open('Clock_Face_2Videvo.mov')
-            ->getCodec();
-
-echo $checkCodec;
-```
-
-Get duration of the file:
-```php
-$checkDuration = Covid::open('Clock_Face_2Videvo.mov')
-            ->getDuration();
-
-echo $checkDuration;
-```
-
-Get the resolution of the video:
-
-```php
-$resolution = Covid::open('Clock_Face_2Videvo.mov')
-            ->getResolution();
-
-echo $width;
-```
 
 ## Testing
 

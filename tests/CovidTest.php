@@ -2,12 +2,10 @@
 
 namespace Laboratory\Covid\Tests;
 
-use Mockery as m;
 use Exception;
+use Mockery as m;
 use Monolog\Logger;
 use Laboratory\Covid\Covid;
-use League\Flysystem\Adapter\Ftp;
-use Illuminate\Log\Logger as Writer;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Illuminate\Config\Repository as ConfigRepository;
 
