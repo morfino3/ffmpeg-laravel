@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'default_disk' => 'videos_disk',
 
     'ffmpeg' => [
         'binaries' => env('FFMPEG_BINARIES', 'ffmpeg'),
@@ -14,4 +13,3 @@ return [
 
     'timeout' => 3600,
 ];
-

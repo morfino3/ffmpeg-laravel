@@ -6,8 +6,8 @@ use Exception;
 use FFMpeg\Media\Frame;
 use FFMpeg\Coordinate\TimeCode;
 use FFMpeg\FFMpeg as BaseFFMpeg;
-use FFMpeg\Format\Video\X264 as X264;
 use FFMpeg\Format\Audio\Mp3 as Mp3;
+use FFMpeg\Format\Video\X264 as X264;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class Covid
@@ -50,24 +50,16 @@ class Covid
 
         $this->filepath = $filepath;
 
-        $ffmpegMedia = $this->ffmpeg->open($filepath);
+        $this->ffmpegMedia = $this->ffmpeg->open($filepath);
 
 
-        return $ffmpegMedia;
+        return $this;
     }
 
     public function getFirstStream()
     {
-        // $ffprobe = FFMpeg\FFProbe::create();
 
-        // $this->ffprobe = $ffprobe;
-
-        $firststream = $this->getStreams()->first();
-
-        // $firststream = $ffprobe
-        //                 ->streams($this->filepath)
-        //                 ->videos()
-        //                 ->first();
+        $firststream = $this->ffmpegMedia->getStreams()->first();
 
         return $firststream;
     }

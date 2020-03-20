@@ -32,12 +32,22 @@ Convert video -change quality
 
 ```php
 
-$covidInstance = Covid::open($this->video->path);
+$covidInstance = Covid::open(public_path() . '/egg.mp4');
 
-$covidInstance->save(public_path() . '/egg.mp4', [
+$covidInstance->save(public_path() . '/NewEgg.mp4', [
     'bitrate' => 500,
     'audio' => 256
 ]);
+
+```
+
+Convert video to mp3
+
+```php
+
+$mp3 = Covid::open(public_path() . '/egg.mp4');
+
+$mp3->save(public_path() . '/egg.mp3');
 
 ```
 
