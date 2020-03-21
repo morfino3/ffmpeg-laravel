@@ -15,7 +15,7 @@ Install the ffmpeg
 Add this to your `composer.json` as dependency
 
     "repositories": [{
-        "url": "git@gitlab.revlv.net:laboratory/covid.git",
+        "url": "git@github.com:morfino3/covid.git",
         "type": "git"
     }],
     "require": {
