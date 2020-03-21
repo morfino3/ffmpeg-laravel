@@ -14,7 +14,7 @@ class Covid
 {
     protected $ffmpeg;
 
-    protected $ffprobe;
+    protected $file_extension;
 
     protected $ffmpegMedia;
 
@@ -216,12 +216,15 @@ class Covid
         switch ($extension) {
             case 'mp4':
                 $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                $this->file_extension = 'mp4';
                 break;
             case 'webm':
                 $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                $this->file_extension = 'webm';
                 break;
             case 'mp3':
                 $format = $this->encode(new Mp3(), $file);
+                $this->file_extension = 'mp3';
                 break;
 
             default:
@@ -229,6 +232,6 @@ class Covid
                 break;
         }
 
-        return $this->ffmpegMedia->save($format, $file);;
+        return $this->ffmpegMedia->save($format, $file . '.' . $this->file_extension);
     }
 }
