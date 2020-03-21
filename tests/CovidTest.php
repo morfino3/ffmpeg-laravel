@@ -36,14 +36,39 @@ class CovidTest extends PHPUnitTestCase
     {
         $covid = $this->getService();
 
-        return $covid->open(__DIR__ . '/src/egg.mov');
+        return $covid->open(__DIR__ . '/src/egg.mp4');
     }
 
-    public function testSave()
+    public function testGetResolution()
+    {
+        $getResolution = $this->getVideoMedia()->getResolution();
+
+        $this->assertEquals('1920 x 1080', $getResolution);
+
+    }
+
+    public function testGetCodec()
+    {
+        $getCodec = $this->getVideoMedia()->getCodec();
+
+        $this->assertEquals('h264', $getCodec);
+
+    }
+
+    public function testGetDuration()
+    {
+        $getDuration = $this->getVideoMedia()->getDuration();
+
+        $this->assertEquals(14, $getDuration);
+
+    }
+
+    public function testConvertVideo()
     {
         $this->expectException(Exception::class);
 
-        $this->getVideoMedia()->save(__DIR__ . '/src/Newegg.mp4', [
+        //since converting to mov file is not supported
+        $this->getVideoMedia()->save(__DIR__ . '/src/Newegg.mov', [
             'bitrate' => 5000,
             'audio' => 512
         ]);

@@ -209,21 +209,21 @@ class Covid
 
     public function save($filename, $options = [])
     {
-       [$filename, $extension] = explode('.', $file);
+       [$filename, $extension] = explode('.', $filename);
 
         $this->setVideoOptions($options);
 
         switch ($extension) {
             case 'mp4':
-                $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                $format = $this->encode(new X264('libmp3lame', 'libx264'), $filename);
                 $this->file_extension = 'mp4';
                 break;
             case 'webm':
-                $format = $this->encode(new X264('libmp3lame', 'libx264'), $file);
+                $format = $this->encode(new X264('libmp3lame', 'libx264'), $filename);
                 $this->file_extension = 'webm';
                 break;
             case 'mp3':
-                $format = $this->encode(new Mp3(), $file);
+                $format = $this->encode(new Mp3(), $filename);
                 $this->file_extension = 'mp3';
                 break;
 
@@ -232,6 +232,6 @@ class Covid
                 break;
         }
 
-        return $this->ffmpegMedia->save($format, $file . '.' . $this->file_extension);
+        return $this->ffmpegMedia->save($format, $filename . '.' . $this->file_extension);
     }
 }
