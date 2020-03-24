@@ -78,6 +78,15 @@ $duration = Covid::open(public_path() . '/egg.mp4')
 echo $duration;
 ```
 
+Generate GIF from a video:
+
+```php
+$resolution = Covid::open(public_path() . '/egg.mp4')
+            ->generateGif(public_path() . '/sample.gif');
+
+return $resolution;
+```
+
 Get the resolution of video:
 
 ```php

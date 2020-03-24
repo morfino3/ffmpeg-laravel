@@ -89,8 +89,47 @@ class Covid
         }
 
         $this->ffmpegMedia->frame(
-            TimeCode::fromSeconds($quantity)->save($path)
-        );
+            TimeCode::fromSeconds($quantity)
+        )->save($path);
+
+        return $this;
+    }
+
+    /**
+     * Generates thumbnail/frame from 10 second mark of the video
+     * otherwise generate from the parameters passed
+     * @param seconds [integer]
+     * @param duration [integer]
+     * @param path [string] - filepath of the new gif
+     * @return Gif object
+     * @return Exception - In case the files
+     * length is lower than duration passed
+     * @return Exception - In case the filepath is not provided
+     **/
+    public function generateGif($path, $fromSeconds = null, $duration = null)
+    {
+        $dimensions = $this->getFirstStream()->getDimensions();
+
+        $width = $dimensions->getWidth();
+        $height = $dimensions->getHeight();
+
+        if (is_null($fromSeconds)) {
+            $fromSeconds = 1;
+        }
+
+        if ($this->getDuration() < $duration) {
+            throw new Exception("Duration parameter passed exceeds file's duration.");
+        }
+
+
+        if (is_null($path)) {
+            throw new Exception('No file path provided for the new GIF.');
+        }
+
+        $gif = $this->ffmpegMedia
+                    ->gif(\FFMpeg\Coordinate\TimeCode::fromSeconds($fromSeconds), new \FFMpeg\Coordinate\Dimension($width, $height), $duration);
+
+        $gif->save($path);
 
         return $this;
     }

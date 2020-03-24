@@ -73,4 +73,14 @@ class CovidTest extends PHPUnitTestCase
             'audio' => 512
         ]);
     }
+
+    public function testGenerateGif()
+    {
+        $this->expectException(Exception::class);
+
+        //since converting to mov file is not supported
+
+        $this->getVideoMedia()->generateGif(__DIR__ . '/sample.gif', 2, 300);
+
+    }
 }
