@@ -4,7 +4,7 @@ return [
 
     'ffmpeg' => [
         'binaries' => env('FFMPEG_BINARIES', 'ffmpeg'),
-        'threads' => 36,
+        'threads' => 4,
     ],
 
     'ffprobe' => [

@@ -4,9 +4,13 @@
     "type": "library",
     "authors": [
        {
-           "name": "Mike Ambait",
-           "email": "michaelambait16@gmail.com"
-       }
+            "name": "Mike Ambait",
+            "email": "michaelambait16@gmail.com"
+        },
+        {
+            "name": "Darick Pascua",
+            "email": "rdpascua@gmail.com"
+        }
     ],
     "require": {
         "php": "^7.4",

@@ -1,4 +1,5 @@
 /vendor/
+/tests/output/
 composer.lock
 .DS_Store
 docs

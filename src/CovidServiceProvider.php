@@ -2,10 +2,10 @@
 
 namespace Laboratory\Covid;
 
+use Illuminate\Support\ServiceProvider;
 use Laboratory\Covid\Covid;
-use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class CovidServiceProvider extends IlluminateServiceProvider
+class CovidServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -16,7 +16,7 @@ class CovidServiceProvider extends IlluminateServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../config/covid.php' => config_path('covid.php'),
-        ], 'laboratory-covid:config');
+        ], 'covid');
 
     }
 
@@ -33,7 +33,8 @@ class CovidServiceProvider extends IlluminateServiceProvider
         );
 
         $this->app->singleton('covid', function ($app) {
-            return $app->make(Covid::class);
+            $dependency = $app['config']->get('covid');
+            return new Covid(\FFMpeg\FFMpeg::create($dependency));
         });
     }
 
@@ -50,4 +51,3 @@ class CovidServiceProvider extends IlluminateServiceProvider
     }
 
 }
-

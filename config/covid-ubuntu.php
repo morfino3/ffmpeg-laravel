@@ -5,7 +5,7 @@ return [
 
     'ffmpeg' => [
         'binaries' => '/usr/bin/ffmpeg',
-        'threads' => 99,
+        'threads' => 4,
     ],
 
     'ffprobe' => [

@@ -29,7 +29,7 @@ class CovidTest extends PHPUnitTestCase
 
         $config->shouldReceive('get')->once()->with('covid')->andReturn($this->getDefaultConfig());
 
-        return new Covid($config);
+        return new Covid(\FFMpeg\FFMpeg::create(), $config);
     }
 
     public function getVideoMedia()
@@ -43,8 +43,9 @@ class CovidTest extends PHPUnitTestCase
     {
         $getResolution = $this->getVideoMedia()->getResolution();
 
-        $this->assertEquals('1920 x 1080', $getResolution);
+        $resolution = $getResolution['width'] .' x '.$getResolution['height'];
 
+        $this->assertEquals('1280 x 720', $resolution);
     }
 
     public function testGetCodec()
@@ -59,28 +60,94 @@ class CovidTest extends PHPUnitTestCase
     {
         $getDuration = $this->getVideoMedia()->getDuration();
 
-        $this->assertEquals(14, $getDuration);
+        $this->assertEquals(36, $getDuration);
 
     }
 
     public function testConvertVideo()
     {
-        $this->expectException(Exception::class);
+        $this->getVideoMedia()->save(__DIR__ . '/output/Newegg.mp4', [
+            'bitrate' => 1200,
+        ]);
 
-        //since converting to mov file is not supported
-        $this->getVideoMedia()->save(__DIR__ . '/src/Newegg.mov', [
+        $this->assertFileExists((__DIR__ . '/output/Newegg.mp4'));
+    }
+
+    public function testConvertSmallVideo()
+    {
+        $covid = $this->getService();
+
+        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
+
+        $covidInstance->save(__DIR__ . '/output/newSmall.mp4', [
             'bitrate' => 5000,
             'audio' => 512
         ]);
+        $this->assertFileExists((__DIR__ . '/output/newSmall.mp4'));
+    }
+
+    public function testConvertAudio()
+    {
+        $this->getVideoMedia()->save(__DIR__ . '/output/egg.mp3');
+
+        $this->assertFileExists((__DIR__ . '/output/egg.mp3'));
+    }
+
+
+    public function testResizeVideo()
+    {
+        $this->getVideoMedia()->resize(640, 480, false)
+                    ->save(__DIR__ . '/output/resized_egg.mp4', [
+                        'bitrate' => 500,
+                        'audio' => 256
+                    ]);
+
+        $covid = $this->getService();
+
+        $covidInstance = $covid->open(__DIR__ . '/output/resized_egg.mp4');
+
+        $getResolution = $covidInstance->getResolution();
+
+        $resolution = $getResolution['width'] .' x '.$getResolution['height'];
+
+        $this->assertEquals('853 x 480', $resolution);
+    }
+
+    public function testVideoMute()
+    {
+        $this->getVideoMedia()->mute()
+            ->save(__DIR__ . '/output/muted_egg.mp4');
+
+        $this->assertFileExists((__DIR__ . '/output/muted_egg.mp4'));
     }
 
     public function testGenerateGif()
     {
         $this->expectException(Exception::class);
 
-        //since converting to mov file is not supported
+        //since GIF duration should not exceeds files duration
 
-        $this->getVideoMedia()->generateGif(__DIR__ . '/sample.gif', 2, 300);
+        $this->getVideoMedia()->generateGif(__DIR__ . '/output/sample.gif', 300, 2);
 
+    }
+
+    public function testGenerateSmallGif()
+    {
+        $covid = $this->getService();
+
+        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
+        $covidInstance->generateGif(__DIR__ . '/output/newSmall.gif', 4);
+
+        $this->assertFileExists((__DIR__ . '/output/newSmall.gif'));
+    }
+
+    public function testGenerateThumbnail()
+    {
+        $covid = $this->getService();
+
+        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
+        $covidInstance->getThumbnail(__DIR__ . '/output/thumbnail.jpg');
+
+        $this->assertFileExists((__DIR__ . '/output/thumbnail.jpg'));
     }
 }
