@@ -143,9 +143,6 @@ $phpunit tests/CovidTest
 
 
 ## Credits
-Credits to PHP-FFMpeg Team, Protone Media, and the creator of
-`laravel-ffmpeg` - laravel wrapper of php-ffmpeg:
+Credits to PHP-FFMpeg Team and Protone Media:
 - [PHP-FFMpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg)
 - [The PHP-FFMpeg constributors](https://github.com/PHP-FFMpeg/PHP-FFMpeg/graphs/contributors)
-- [Pascal Baljet](https://github.com/pascalbaljet)
-- [laravel-ffmpeg](https://github.com/pascalbaljetmedia/laravel-ffmpeg)
