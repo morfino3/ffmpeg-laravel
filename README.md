@@ -2,7 +2,7 @@
 A simplified Laravel wrapper of PHP-FFMpeg: for simple video conversion, thumbnail generation, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
 ## Requirements
 
-* PHP 7.4
+* PHP 7.2
 * Apache 2.2+
 
 ## Configuration
@@ -11,7 +11,8 @@ A working installation of FFMpeg is needed
 Install the ffmpeg
 
     sudo apt update
-    sudo apt install ffmpeg / brew install ffmpeg
+    sudo apt install ffmpeg 
+    (mac) brew install ffmpeg
 
 
 Add this to your `composer.json` as dependency
@@ -21,7 +22,7 @@ Add this to your `composer.json` as dependency
         "type": "git"
     }],
     "require": {
-      "laboratory/FFMpegLaravel": "dev-master",
+      "FFMpegLaravel/FFMpegLaravel": "dev-master",
   }
 
 Or you can add a particular version (See tags)
@@ -35,7 +36,7 @@ Publish vendor
 Add this to your config/app.php, to use it globally
 
 ```php
-'FFMpegLaravel' => Laboratory\FFMpegLaravel\FFmpegLaravel::class
+'FFMpegLaravel' => FFMpegLaravel\FFMpegLaravel\FFmpegLaravel::class
 ```
 
 Convert video (change) quality, pass an optional parameter:
