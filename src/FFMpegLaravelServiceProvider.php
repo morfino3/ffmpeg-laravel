@@ -1,11 +1,11 @@
 <?php
 
-namespace Laboratory\Covid;
+namespace FFMpegLaravel\FFMpegLaravel;
 
 use Illuminate\Support\ServiceProvider;
-use Laboratory\Covid\Covid;
+use FFMpegLaravel\FFmpegLaravel\FFMpegLaravel;
 
-class CovidServiceProvider extends ServiceProvider
+class FFMpegLaravelServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
@@ -15,8 +15,8 @@ class CovidServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/covid.php' => config_path('covid.php'),
-        ], 'covid');
+            __DIR__ . '/../config/ffmpeglaravel.php' => config_path('ffmpeglaravel.php'),
+        ], 'ffmpeglaravel');
 
     }
 
@@ -29,12 +29,12 @@ class CovidServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/covid.php', 'covid'
+            __DIR__ . '/../config/ffmpeglaravel.php', 'ffmpeglaravel'
         );
 
-        $this->app->singleton('covid', function ($app) {
-            $dependency = $app['config']->get('covid');
-            return new Covid(\FFMpeg\FFMpeg::create($dependency));
+        $this->app->singleton('ffmpeglaravel', function ($app) {
+            $dependency = $app['config']->get('ffmpeglaravel');
+            return new FFmpegLaravel(\FFMpeg\FFMpeg::create($dependency));
         });
     }
 
@@ -46,7 +46,7 @@ class CovidServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'covid'
+            'ffmpeglaravel'
         ];
     }
 

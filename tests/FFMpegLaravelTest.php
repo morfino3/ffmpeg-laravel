@@ -1,15 +1,15 @@
 <?php
 
-namespace Laboratory\Covid\Tests;
+namespace FFMpegLaravelTest\FFMpegLaravel\Tests;
 
 use Exception;
 use Mockery as m;
 use Monolog\Logger;
-use Laboratory\Covid\Covid;
+use FFMpegLaravel\FFMpegLaravel\FFMpegLaravel;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Illuminate\Config\Repository as ConfigRepository;
 
-class CovidTest extends PHPUnitTestCase
+class FFMpegLaravelTest extends PHPUnitTestCase
 {
     public function setUp(): void
     {
@@ -18,25 +18,26 @@ class CovidTest extends PHPUnitTestCase
         $this->remoteFilesystem = false;
     }
 
+    // Change the config base on environment
     public function getDefaultConfig()
     {
-        return require __DIR__ . '/../config/covid-ubuntu.php';
+        return require __DIR__ . '/../config/ffmpeglaravel-mac.php';
     }
 
-    public function getService(): Covid
+    public function getService(): FFMpegLaravel
     {
         $config = m::mock(ConfigRepository::class);
 
-        $config->shouldReceive('get')->once()->with('covid')->andReturn($this->getDefaultConfig());
+        $config->shouldReceive('get')->once()->with('ffmpeglaravel')->andReturn($this->getDefaultConfig());
 
-        return new Covid(\FFMpeg\FFMpeg::create(), $config);
+        return new FFMpegLaravel(\FFMpeg\FFMpeg::create(), $config);
     }
 
     public function getVideoMedia()
     {
-        $covid = $this->getService();
+        $ffmpeglaravel = $this->getService();
 
-        return $covid->open(__DIR__ . '/src/egg.mp4');
+        return $ffmpeglaravel->open(__DIR__ . '/src/egg.mp4');
     }
 
     public function testGetResolution()
@@ -75,12 +76,12 @@ class CovidTest extends PHPUnitTestCase
 
     public function testConvertSmallVideo()
     {
-        $covid = $this->getService();
+        $ffmpeglaravel = $this->getService();
 
-        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
+        $ffmpeglaravelInstance = $ffmpeglaravel->open(__DIR__ . '/src/small.mkv');
 
-        $covidInstance->save(__DIR__ . '/output/newSmall.mp4', [
-            'bitrate' => 5000,
+        $ffmpeglaravelInstance->save(__DIR__ . '/output/newSmall.mp4', [
+            'bitrate' => 1200,
             'audio' => 512
         ]);
         $this->assertFileExists((__DIR__ . '/output/newSmall.mp4'));
@@ -102,11 +103,11 @@ class CovidTest extends PHPUnitTestCase
                         'audio' => 256
                     ]);
 
-        $covid = $this->getService();
+        $ffmpeglaravel = $this->getService();
 
-        $covidInstance = $covid->open(__DIR__ . '/output/resized_egg.mp4');
+        $ffmpeglaravelInstance = $ffmpeglaravel->open(__DIR__ . '/output/resized_egg.mp4');
 
-        $getResolution = $covidInstance->getResolution();
+        $getResolution = $ffmpeglaravelInstance->getResolution();
 
         $resolution = $getResolution['width'] .' x '.$getResolution['height'];
 
@@ -133,20 +134,20 @@ class CovidTest extends PHPUnitTestCase
 
     public function testGenerateSmallGif()
     {
-        $covid = $this->getService();
+        $ffmpeglaravel = $this->getService();
 
-        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
-        $covidInstance->generateGif(__DIR__ . '/output/newSmall.gif', 4);
+        $ffmpeglaravelInstance = $ffmpeglaravel->open(__DIR__ . '/src/small.mkv');
+        $ffmpeglaravelInstance->generateGif(__DIR__ . '/output/newSmall.gif', 4);
 
         $this->assertFileExists((__DIR__ . '/output/newSmall.gif'));
     }
 
     public function testGenerateThumbnail()
     {
-        $covid = $this->getService();
+        $ffmpeglaravel = $this->getService();
 
-        $covidInstance = $covid->open(__DIR__ . '/src/small.mkv');
-        $covidInstance->getThumbnail(__DIR__ . '/output/thumbnail.jpg');
+        $ffmpeglaravelInstance = $ffmpeglaravel->open(__DIR__ . '/src/small.mkv');
+        $ffmpeglaravelInstance->getThumbnail(__DIR__ . '/output/thumbnail.jpg');
 
         $this->assertFileExists((__DIR__ . '/output/thumbnail.jpg'));
     }

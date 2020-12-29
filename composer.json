@@ -6,14 +6,10 @@
        {
             "name": "Mike Ambait",
             "email": "michaelambait16@gmail.com"
-        },
-        {
-            "name": "Darick Pascua",
-            "email": "rdpascua@gmail.com"
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^7.2",
         "illuminate/config": "^7.0",
         "illuminate/log": "^7.0",
         "illuminate/support": "^7.0",
@@ -28,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Laboratory\\Covid\\": "src"
+            "FFMpegLaravel\\FFMpegLaravel\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Laboratory\\Covid\\Tests\\": "tests"
+            "FFMpegLaravel\\FFmpegLaravel\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,10 +41,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Laboratory\\Covid\\CovidServiceProvider"
+                "FFMpegLaravel\\FFMpegLaravel\\FFMpegLaravelServiceProvider"
             ],
             "aliases": {
-                "Covid": "Laboratory\\Covid\\Facades\\Covid"
+                "FFMpegLaravel": "FFMpegLaravel\\FFmpegLaravel\\Facades\\FFMpegLaravel"
             }
         }
     }

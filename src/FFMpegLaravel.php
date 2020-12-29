@@ -1,6 +1,6 @@
 <?php
 
-namespace Laboratory\Covid;
+namespace FFMpegLaravel\FFMpegLaravel;
 
 use Exception;
 use FFMpeg\Coordinate\Dimension;
@@ -12,7 +12,7 @@ use FFMpeg\Format\Video\WebM;
 use FFMpeg\Format\Video\X264 as X264;
 use FFMpeg\Media\Frame;
 
-class Covid
+class FFMpegLaravel
 {
     protected $ffmpeg;
 

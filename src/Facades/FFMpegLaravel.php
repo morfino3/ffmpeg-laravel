@@ -1,10 +1,10 @@
 <?php
 
-namespace Laboratory\Covid\Facades;
+namespace Laboratory\FFMpegLaravel\Facades;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
-class Covid extends BaseFacade
+class FFMpegLaravel extends BaseFacade
 {
 	/**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Covid extends BaseFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'covid';
+        return 'ffmpeglaravel';
     }
 }
