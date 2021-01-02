@@ -18,7 +18,7 @@ Install the ffmpeg
 Add this to your `composer.json` as dependency
 
     "repositories": [{
-        "url": "git@github.com:morfino3/FFMpegLaravel.git",
+        "url": "git@github.com:morfino3/ffmpeg-laravel.git",
         "type": "git"
     }],
     "require": {
@@ -76,7 +76,6 @@ $resizedVideo = FFMpegLaravel::open(public_path() . '/egg.mp4')
                         'bitrate' => 500,
                         'audio' => 256
                     ]);
-return $resizedVideo;
 ```
 
 Removes audio from video
@@ -86,7 +85,6 @@ $mutedVideo = FFMpegLaravel::open(public_path() . '/egg.mp4')
             ->mute()
             ->save(__DIR__ . '/output/muted_egg.mp4');
 
-return $mutedVideo
 ```
 
 Generate thumbnail:
