@@ -1,5 +1,7 @@
+![example workflow](https://github.com/morfino3/ffmpeg-laravel/actions/workflows/php.yml/badge.svg)
 # FFMpegLaravel
 A simplified Laravel wrapper of PHP-FFMpeg: for simple video conversion, thumbnail generation, resizing etc., utilizing FFMpeg's powerful open source library/tool that can decode and encode any video format to one another.
+
 ## Requirements
 
 * PHP 7.2
