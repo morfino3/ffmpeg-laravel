@@ -36,7 +36,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
       
     - name: Run Unit test
-      run: composer run-script tests/FFMpegLaravelTest
+      run: phpunit tests/FFMpegLaravelTest
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
