@@ -40,8 +40,9 @@ jobs:
     - name: Output file artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Output file - artifact
-        path: /ffmpeg-laravel/tests/output/*
+        name: Output file - egg.mp3
+        path: /tests/output/egg.mp3 || /tests/output/muted_egg.mp4 || /tests/output/Newegg.mp4 || /tests/output/newSmall.gif || /tests/output/newSmall.mp4 || /tests/output/resized_egg.mp4 || /tests/output/thumbnail.jpg
+        
       
     - name: Run test
       run: vendor/bin/phpunit tests/FFMpegLaravelTest.php
