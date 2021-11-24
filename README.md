@@ -15,15 +15,9 @@ Install the ffmpeg
     (mac) brew install ffmpeg
 
 
-Add this to your `composer.json` as dependency
-
-    "repositories": [{
-        "url": "git@github.com:morfino3/ffmpeg-laravel.git",
-        "type": "git"
-    }],
-    "require": {
-      "FFMpegLaravel/FFMpegLaravel": "dev-master",
-  }
+Run:
+    ```composer require mikeambait/ffmpeglaravel
+    ```
 
 Or you can add a particular version (See tags)
 
