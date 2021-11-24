@@ -1,5 +1,5 @@
 {
-    "name": "laboratory/covid",
+    "name": "mikeambait/ffmpeglaravel",
     "description": "Laravel wrapper of php-ffmpeg for simple video conversion, editing, resizing etc., utilizing FFMpeg's powerful open source library/tool",
     "type": "library",
     "authors": [
