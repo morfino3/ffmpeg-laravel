@@ -45,7 +45,8 @@ jobs:
        with:
           configuration: /phpunit.xml
           memory_limit: 256M
-
+     - name: Run Unit test
+       run: phpunit tests/FFMpegLaravelTest
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
