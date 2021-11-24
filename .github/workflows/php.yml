@@ -34,19 +34,8 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-
-
-  unit-tests:
-    
-    runs-on: ubuntu-latest
-    steps:
-     - name: PHPUnit tests
-     - uses: php-actions/phpunit@v3
-       with:
-          configuration: /phpunit.xml
-          memory_limit: 256M
-     - name: Run Unit test
-       run: phpunit tests/FFMpegLaravelTest
+    - name: Run test
+      run: vendor/bin/phpunit tests/FFMpegLaravelTest
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
