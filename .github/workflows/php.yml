@@ -17,8 +17,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
-    - name: Install FFMPEG
-      run: sudo apt update && sudo apt install ffmpeg 
+#     - name: Install FFMPEG
+#       run: sudo apt update && sudo apt install ffmpeg 
     
     - uses: actions/checkout@v2
 
@@ -37,14 +37,14 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
       
-    - name: Run test
-      run: vendor/bin/phpunit tests/FFMpegLaravelTest.php
+#     - name: Run test
+#       run: vendor/bin/phpunit tests/FFMpegLaravelTest.php
       
-    - name: Output file artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Output file - egg.mp3
-        path: /tests/output/egg.mp3 || /tests/output/muted_egg.mp4 || /tests/output/Newegg.mp4 || /tests/output/newSmall.gif || /tests/output/newSmall.mp4 || /tests/output/resized_egg.mp4 || /tests/output/thumbnail.jpg
+#     - name: Output file artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: Output file - egg.mp3
+#         path: /tests/output/egg.mp3 || /tests/output/muted_egg.mp4 || /tests/output/Newegg.mp4 || /tests/output/newSmall.gif || /tests/output/newSmall.mp4 || /tests/output/resized_egg.mp4 || /tests/output/thumbnail.jpg
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
