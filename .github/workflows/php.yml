@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build_and_test:
 
     runs-on: ubuntu-latest
 
@@ -36,6 +36,13 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
+      
+    - name: Output file artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Output file - artifact
+        path: /ffmpeg-laravel/tests/output/*
+      
     - name: Run test
       run: vendor/bin/phpunit tests/FFMpegLaravelTest.php
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
